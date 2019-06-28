@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface StudentService {
 
-    void insertData(Student student);
+    boolean insertData(Student student);
     boolean updateData(Student student);
     boolean deleteData(String id);
     ArrayList<Student> displayData();

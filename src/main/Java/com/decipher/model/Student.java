@@ -6,28 +6,27 @@ public class Student {
     private String name;
     private String fatherName;
 
-    public void setid(String id ){
+    public void setId(String id ){
         this.id = id;
-    }public void setname(String name) {
+    }public void setName(String name) {
         this.name=name;
     }
-    public void setfatherName(String fatherName){
+    public void setFatherName(String fatherName){
         this.fatherName=fatherName;
     }
-    public void setage(int age) {
+    public void setAge(int age) {
         this.age=age;
     }
-
-    public String getid(){
+    public String getId(){
         return id;
     }
-    public String getname(){
+    public String getName(){
         return name;
     }
-    public String getfatherName(){
+    public String getFatherName(){
         return fatherName;
     }
-    public int getage(){
+    public int getAge(){
         return age;
     }
 }

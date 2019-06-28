@@ -23,14 +23,15 @@ public class StudentServiceImpl implements StudentService {
     private MongoCollection<Document> collection = database.getCollection("studentCollection");
 
 
-    public void insertData(Student student) {
+    public boolean insertData(Student student) {
 
         Document document = new Document("title", "MongoDB")
-                .append("name", student.getname())
-                .append("fatherName", student.getfatherName())
-                .append("age", student.getage());
+                .append("name", student.getName())
+                .append("fatherName", student.getFatherName())
+                .append("age", student.getAge());
         collection.insertOne(document);
         System.out.println("Document inserted successfully");
+        return true;
     }
 
 
@@ -43,23 +44,16 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ArrayList<Student> displayData() {
-        /*try (MongoCursor<Document> cur = collection.find().iterator()) {
-            ArrayList list = new ArrayList();
-            while (cur.hasNext()) {
-                Document doc = cur.next();
-                list.add(new ArrayList(doc.values()));
-            }
-             return list;
-        }*/
+
         List<Document> documents = collection.find().into(new ArrayList<Document>());
         ArrayList<Student> list = new ArrayList();
 
         for (Document studentData : documents) {
             Student student = new Student();
-            student.setid(studentData.get("_id").toString());
-            student.setname((String) studentData.get("name"));
-            student.setfatherName((String) studentData.get("fatherName"));
-            student.setage((Integer) studentData.get("age"));
+            student.setId(studentData.get("_id").toString());
+            student.setName((String) studentData.get("name"));
+            student.setFatherName((String) studentData.get("fatherName"));
+            student.setAge((Integer) studentData.get("age"));
             list.add(student);
 
         }
@@ -75,10 +69,10 @@ public class StudentServiceImpl implements StudentService {
         Student student = new Student();
         for (Document studentData : documents) {
             if(studentData.get("_id").toString().equalsIgnoreCase(id)) {
-                student.setid(studentData.get("_id").toString());
-                student.setname((String) studentData.get("name"));
-                student.setfatherName((String) studentData.get("fatherName"));
-                student.setage((Integer) studentData.get("age"));
+                student.setId(studentData.get("_id").toString());
+                student.setName((String) studentData.get("name"));
+                student.setFatherName((String) studentData.get("fatherName"));
+                student.setAge((Integer) studentData.get("age"));
             }
 
         }
@@ -90,17 +84,17 @@ public class StudentServiceImpl implements StudentService {
 
 
         //if (new ObjectId(student.getid()).equals("_id")) {
-            if (student.getname() != null) {
-                collection.updateOne(Filters.eq("_id", new ObjectId(student.getid())), Updates.set("name", student.getname()));
+            if (student.getName() != null) {
+                collection.updateOne(Filters.eq("_id", new ObjectId(student.getId())), Updates.set("name", student.getName()));
                 System.out.println("name update successfully...");
             }
-            if (student.getfatherName() != null) {
-                collection.updateOne(Filters.eq("_id", new ObjectId(student.getid())), Updates.set("fatherName", student.getfatherName()));
+            if (student.getFatherName() != null) {
+                collection.updateOne(Filters.eq("_id", new ObjectId(student.getId())), Updates.set("fatherName", student.getFatherName()));
                 System.out.println("father name update successfully...");
             }
-            if (student.getage() != 0) {
+            if (student.getAge() != 0) {
 
-                collection.updateOne(Filters.eq("_id", new ObjectId(student.getid())), Updates.set("age", student.getage()));
+                collection.updateOne(Filters.eq("_id", new ObjectId(student.getId())), Updates.set("age", student.getAge()));
                 System.out.println("age update successfully...");
             }
             return true;

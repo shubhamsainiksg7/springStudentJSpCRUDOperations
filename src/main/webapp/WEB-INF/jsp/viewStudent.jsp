@@ -20,6 +20,7 @@
 
     <h2 align="center" style=" color: indianred;" class="alert alert-info">Student List</h2>
     <br>
+    <tr><td colspan="2"><a href="/" method="POST"><center><input type="button"  class="btn btn-primary" value="Back to Home" align="Right"/></center></a></td></tr><br><br>
     <c:if test="${students != null}">
 
         <table align="center" class="table table-hover table-bordered" style="width: 70%;">
@@ -33,17 +34,17 @@
             </tr>
             <c:forEach var="student" items="${students}">
                 <tr>
-                    <td><c:out value="${student.getid()}" /></td>
-                    <td><c:out value="${student.getname()}" /></td>
-                    <td><c:out value="${student.getfatherName()}" /></td>
-                    <td><c:out value="${student.getage()}" /></td>
+                    <td><c:out value="${student.getId()}" /></td>
+                    <td><c:out value="${student.getName()}" /></td>
+                    <td><c:out value="${student.getFatherName()}" /></td>
+                    <td><c:out value="${student.getAge()}" /></td>
                     <td><a href="<c:url value='deletedata/${student.id}' />" ><input type="button" value="delete"></a></td>
                     <td><a href="<c:url value='updatedata/${student.id}' />" ><input type="button" value="update"></a></td>
                 </tr>
             </c:forEach>
 
         </table>
-        <tr><td colspan="2"><a href="/" method="POST"><center><input type="button"  class="btn btn-primary" value="cancel" align="middle"/></center></a></td></tr>
+
     </c:if>
 
 </table>

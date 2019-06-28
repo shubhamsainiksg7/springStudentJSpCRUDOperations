@@ -21,47 +21,34 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @RequestMapping(value = "/")
-    public ModelAndView welcome() {
-        return new ModelAndView("index");
-    }
-
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public ModelAndView method() {
-        return new ModelAndView("index");
-    }
-
-    @RequestMapping(value = "/addstudent", method = RequestMethod.POST)
-    public ModelAndView addStudentRecord() {
-        return new ModelAndView("addStudent");
-    }
 
     @RequestMapping(value="/insertData",method = RequestMethod.POST)
     public ModelAndView insertData(@ModelAttribute("student") Student student){
         studentService.insertData(student);
-        return new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("index");
+        boolean insertStatus = studentService.insertData(student);
+        String insertString = "inserted successfully";
+        if(insertStatus == true){
+            modelAndView.addObject("message", insertString);
+        }else{
+            modelAndView.addObject("mesaage","something wrong went");
+        }
+        return modelAndView;
     }
 
-/*    @RequestMapping(value = "/deletestudent", method = RequestMethod.POST)
-    public ModelAndView deleteStudentRecord() {
-        return new ModelAndView("deleteStudent");
-    }*/
-    /*@RequestMapping(value="/deletedata",method = RequestMethod.POST)
-    public ModelAndView deleteData(@ModelAttribute("student") Student student){
-        studentService.deleteData(student);
-        return new ModelAndView("index");
-    }*/
     @RequestMapping(value = "/deletedata/{id}",method = RequestMethod.GET)
     public ModelAndView deleteStudent(@PathVariable String  id ){
         ModelAndView modelAndView = new ModelAndView("index");
         boolean deleteStatus = studentService.deleteData(id);
-        modelAndView.addObject(deleteStatus);
-            return modelAndView;
+        String deleteString = "deleted successfully";
+        if(deleteStatus == true) {
+            modelAndView.addObject("message", deleteString);
+        }else{
+            modelAndView.addObject("message", "Somthing went wrong !");
+        }
+        return modelAndView;
     }
-    @RequestMapping(value = "/updatestudent", method = RequestMethod.POST)
-    public ModelAndView updateStudentRecord() {
-        return new ModelAndView("viewStudent");
-    }
+
 
     @RequestMapping(value="/updatedata/{id}",method = RequestMethod.GET)
     public ModelAndView getDataForUpdateStudent(@PathVariable String id ) {
@@ -73,14 +60,20 @@ public class StudentController {
     @RequestMapping(value="/updatedata",method = RequestMethod.POST)
     public ModelAndView updatedata(@ModelAttribute("student") Student student) {
        studentService.updateData(student);
-        return new ModelAndView("index");
+       ModelAndView modelAndView = new ModelAndView("index");
+        boolean updateStatus = studentService.updateData(student);
+        String updateString = "updated successfully";
+        if(updateStatus == true) {
+            modelAndView.addObject("message", updateString);
+        }else{
+            modelAndView.addObject("message", "Somthing went wrong !");
+        }
+        return modelAndView;
     }
 
 
-
-
     @RequestMapping(value="/viewStudent")
-    public ModelAndView comments() {
+    public ModelAndView displayStudentInfo() {
         List<Student> studentList =  studentService.displayData();
         ModelAndView result = new ModelAndView("viewStudent");
         result.addObject("students" , studentList);

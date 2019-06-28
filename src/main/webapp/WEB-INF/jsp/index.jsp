@@ -7,28 +7,23 @@
 </head>
 
 <body>
-<h2 style="color: green;"><c:out value="${modelAndView.deleteStatus}"/></h2>
-<h2>Student Management</h2>
+<h2><c:out value="${message}"></c:out></h2>
+
+<h2 align="center">Student Management</h2>
 <form action="/addstudent" method="post">
-    <button type="submit" style="font-size: 20px;">Add Student</button>
-
-<%--
+    <table align="center">
+        <tr><td><button type="submit" style="font-size: 20px;">Add Student</button></td></tr>
+    </table>
 </form>
-<form action="/deletestudent" method="post">
-    <button type="submit" style="font-size: 20px;">Delete Student</button>
-
-</form>
-<form action="/updatestudent" method="post">
-    <button type="submit" style="font-size: 20px;">Update Student</button>
-
-</form>
---%>
-
-</form>
+<br>
 <form action="/viewStudent" method="post">
-    <button type="submit" style="font-size: 20px;">view student</button>
+    <table align="center">
+        <tr>
+    <td><button type="submit" style="font-size: 20px;">view student</button></td>
+        </tr>
+    </table>
 
 </form>
-
+</table>
 </body>
 </html>
